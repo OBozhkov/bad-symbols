@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+
+	<title>{ Project Name }</title>
+
+	<link rel="shortcut icon" type="image/x-icon" href="css/images/favicon.ico" />
+
+	<link rel="stylesheet" href="css/style.css" />
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+
+</head>
+<body>
+	<div class="wrapper">
+		<section class="section">
+			<pre>
+				&lt;p>Between the quotes "" “” there is a bad symbol that will broke the deploy task&lt;/p>
+			</pre>
+
+			<h2 class="section__title">This code will help you to find those symbols quickly and remove it</h2><!-- /.section__title -->
+
+			<div class="section__body">
+				<p>Between the quotes " " “ ” there is a bad symbol that will broke the deploy task</p>
+			</div><!-- /.section__body -->
+		</section><!-- /.section -->
+	</div><!-- /.wrapper -->
+
+<script type="text/javascript">
+	String.prototype.replaceAll = function (find, replace) {
+		var str = this;
+		return str.replace(new RegExp(find.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'g'), replace);
+	};
+
+	$(window).on('load', function() {
+		var $content = $('.wrapper');
+		var contentText = $content.html();
+		var newContent = contentText
+			.replaceAll("\u2028", "<span class='bad-symbol'>\u2028</span>")
+			.replaceAll("\u2029", "<span class='bad-symbol'>\u2029</span>");
+
+		$content.html(newContent);
+
+		$('.bad-symbol').css({
+			"display": "inline-block",
+			"backgroundColor": "red",
+			"width": 30,
+			"height": 30
+		})
+	});
+</script>
+</body>
+</html>
